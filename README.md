@@ -5,13 +5,13 @@ This is a set of TCL scripts for EggDrop bots.
 The bundle contains:
 
 ## Files:
-    dalops.tcl v. 1.3.2
+    dalops.tcl v. 1.3.5
     TCL for timed identification to services, prevents flooding services and asks for ops when not opped.
 
     greet.tcl v. 1.2
     TCL for channel on join greet.
 
-    ops.tcl v. 2.0
+    ops.tcl v. 2.10
     Messages to channel ops and channel voiced + ops members.
 
     antispam.tcl v. 1.1
