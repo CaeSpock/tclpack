@@ -1,4 +1,4 @@
-# DALops TCL ver 1.3.2 by CaeSpock <Cae@CaeSpock.ORG>
+# DALops TCL ver 1.3.5 by CaeSpock <Cae@CaeSpock.ORG>
 #
 # This TCL will try to gain ops on channels via NickServ/Chanserv
 # Will prevent so the bot doesnt flood services.
@@ -30,12 +30,12 @@
 set nick_bot "BotNick"
 set nick_pass "PassForBot1"
 ### Please put your bot's secondary nick and password
-set nick_2_bot "AltNick"
+set nick_2_bot "BotNick2"
 set nick_2_pass "PassForBot2"
 ### Please put the time lenght in minutes between each identify to gain ops
 set cada_cuanto 3
 ### Please put the channels your bot resides, separated by spaces
-set canales "#channel1 #channel2"
+set canales "#CaeSpock"
 ### Why i didnt use the $channels global variable?
 ### Cause some bots are not ment to be oped on some channels they are in
 
@@ -49,7 +49,9 @@ bind notc - "*is operated by ChanSer*" notice_ident
 proc identificarse {handle idx args} {
   	global nick_bot nick_2_bot nick_pass nick_2_pass canales botnick
         putserv "nickserv IDENTIFY $nick_bot $nick_pass"
-        putserv "nickserv IDENTIFY $nick_2_bot $nick_2_pass"
+        if {$nick_2_bot != ""} {
+          putserv "nickserv IDENTIFY $nick_2_bot $nick_2_pass"
+        }
         set total_canales [llength $canales]
         for {set contador 0} {$contador < $total_canales} {incr contador} {
            putserv "chanserv op [lindex $canales $contador] $botnick"
@@ -61,7 +63,9 @@ proc notice_ident {nick host handle text {dest ""}} {
   	global nick_bot nick_2_bot nick_pass nick_2_pass canales botnick
 	if {$dest==""} { set dest $botnick }
         putserv "nickserv IDENTIFY $nick_bot $nick_pass"
-        putserv "nickserv IDENTIFY $nick_2_bot $nick_2_pass"
+        if {$nick_2_bot != ""} {
+          putserv "nickserv IDENTIFY $nick_2_bot $nick_2_pass"
+        }
         set total_canales [llength $canales]
         for {set contador 0} {$contador < $total_canales} {incr contador} {
            putserv "chanserv op [lindex $canales $contador] $botnick"
@@ -80,7 +84,9 @@ proc identificarme {} {
   for {set contador 0} {$contador < $total_canales} {incr contador} {
       if {![botisop [lindex $canales $contador]]} {
         putserv "nickserv IDENTIFY $nick_bot $nick_pass"
-        putserv "nickserv IDENTIFY $nick_2_bot $nick_2_pass"
+        if {$nick_2_bot != ""} {
+          putserv "nickserv IDENTIFY $nick_2_bot $nick_2_pass"
+        }
         putserv "chanserv op [lindex $canales $contador] $botnick"
         putlog "Trying to gain ops on \2[lindex $canales $contador]\2"
       }
@@ -95,5 +101,5 @@ if { [info exists _tiempo_timer] } { killtimer $_tiempo_timer }
 
 set _tiempo_timer [timer $cada_cuanto identificarme]
 
-putlog "DALnet GetOps v.1.3.2 by CaeSpock loaded & Configured for $nick_bot !"
+putlog "DALnet GetOps v.1.3.5 by CaeSpock loaded & Configured for $nick_bot !"
 
