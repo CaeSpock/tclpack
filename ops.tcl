@@ -1,4 +1,4 @@
-# Ops.TCL v. 2.00
+# Ops.TCL v. 2.10
 # By CaeSpock <cae@caespock.org>
 #
 # Sends a message to all @ps in a channel
@@ -35,7 +35,7 @@ proc dcc_voz {hand idx text} {
   }
 
   putlog "$hand \[OpsVoiced $chan\]:$text"
-  putserv "NOTICE @+$chan :12$hand: $text"
+  putserv "NOTICE @+$chan :$hand: $text"
   return 1
 }
 
@@ -81,9 +81,9 @@ proc dcc_wall {hand idx text} {
   }
 
   putlog "$hand \[Ops $chan ($ops)\]:$text"
-  putserv "NOTICE @$chan :12$hand: $text"
+  putserv "NOTICE @$chan :$hand: $text"
   return 1
 }
 
-putlog "Loaded: Ops.TCL 2.00 by CaeSpock!"
+putlog "Loaded: Ops.TCL 2.10 by CaeSpock!"
 
